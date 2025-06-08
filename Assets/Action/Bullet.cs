@@ -4,6 +4,6 @@ public class Bullet : MonoBehaviour
 {
     private void FixedUpdate()
     {
-        transform.transform.Translate(Vector3.right * 3 * Time.deltaTime);
+        transform.transform.Translate(Vector3.right * 8 * Time.deltaTime);
     }
 }

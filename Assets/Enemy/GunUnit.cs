@@ -9,8 +9,10 @@ public class GunUnit : Enemy
 
     private void Start()
     {
-       attackAction =  attackFactory.createOperation<GunAttack>();
-        Global.EventHandler.Invoke<Enemy>(Type.Enemy, this);
+       attackAction =  attackFactory.createOperation<LaserAttack>();
+        moveAction = moveFactory.createOperation<FollowMove>();
+        Global.EventHandler.Invoke<Enemy>(Type.EnemyAttack, this);
         attackAction.Execute();
+        moveAction.Execute();
     }
 }

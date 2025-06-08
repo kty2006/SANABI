@@ -1,11 +1,32 @@
+using System;
 using UnityEngine;
 
-struct States
+[Serializable]
+public struct States
 {
-    int MaxHp;
-    int CurrentHp;
-    int Power;
-    int MoveSpeed;
+    public int MaxHp;
+    public int CurrentHp;
+    public int Power;
+    public int MoveSpeed;
+    public int AttackSpeed;
+}
+
+public class ActionType : IProduct
+{
+    public Enemy Enemy;
+    public virtual void Execute()
+    {
+
+    }
+
+    public virtual void Setting()
+    {
+        Global.EventHandler.Register<Enemy>(Type.EnemyAttack, (ev) =>
+        {
+            Enemy = ev;
+        });
+    }
+
 }
 
 public abstract class Enemy : MonoBehaviour
@@ -13,12 +34,24 @@ public abstract class Enemy : MonoBehaviour
     //юс╫ц
     public GameObject Bullet;
     public GameObject Target;
+    public DataFactory DataFactory;
+    [field: SerializeField]
+    public Transform[] points { get; private set; }
 
-    protected IAction attackAction;
+    [SerializeField]
+    protected States states;
+    protected ActionType attackAction;
+    protected ActionType moveAction;
     protected AttackFactory attackFactory = new();
+    protected AttackFactory moveFactory = new();
 
     public GameObject CreatBullet(Vector3 euler)
     {
-        return Instantiate(Bullet,transform.position,Quaternion.Euler(euler));
+        return Instantiate(Bullet, transform.position, Quaternion.Euler(euler));
+    }
+
+    public States GetStates()
+    {
+        return states;
     }
 }

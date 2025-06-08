@@ -6,7 +6,7 @@ using UnityEngine.LightTransport;
 
 	public enum Type
 	{
-		Enemy
+		EnemyAttack
 	}
 
 	public class EventHandler

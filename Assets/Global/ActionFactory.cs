@@ -2,18 +2,18 @@ using UnityEngine;
 
 public abstract class ActionFactory
 {
-    public IAction createOperation<Type>() where Type : IAction, new()
+    public ActionType createOperation<Type>() where Type : ActionType, new()
     {
-        IAction product = createAction<Type>();
+        ActionType product = createAction<Type>();
         product.Setting();
         return product;
     }
 
-    abstract protected IAction createAction<Type>() where Type : IAction, new();
+    abstract protected ActionType createAction<Type>() where Type : ActionType, new();
 }
 public class AttackFactory : ActionFactory
 {
-    protected override IAction createAction<Type>()
+    protected override ActionType createAction<Type>()
     {
         return new Type();
     }
