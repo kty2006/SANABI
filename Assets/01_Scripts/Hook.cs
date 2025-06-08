@@ -54,7 +54,7 @@ public class Hook : MonoBehaviour
 
         joint.enabled = IsAttached;
 
-        if(Input.GetMouseButtonDown(0) && !isHookActive)
+        if(Input.GetMouseButtonDown(0) && !isHookActive && Vector2.Distance(hook.position, transform.position) < 0.1f)
         {
             hook.position = transform.position;
             hook.gameObject.SetActive(true);
@@ -72,7 +72,6 @@ public class Hook : MonoBehaviour
 
         else if(Input.GetMouseButtonUp(0) && isHookActive)
         {
-            transform.GetComponent<Rigidbody2D>().AddForce(transform.GetComponent<Rigidbody2D>().linearVelocity, ForceMode2D.Impulse);
             IsAttached = false;
             isHookActive = false;
         }
